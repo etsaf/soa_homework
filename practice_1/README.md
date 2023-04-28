@@ -12,7 +12,7 @@ docker-compose up
 
 ```
 docker-compose build
-docker-compose native
+docker-compose up native
 ```
 
 Для тестирования используется следующая структура данных:
