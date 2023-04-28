@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+
+  native:
+    build: tester/
+    command: python ./serialize.py native
+  
+  xml:
+    build: tester/
+    command: python ./serialize.py xml
+  
+  json:
+    build: tester/
+    command: python ./serialize.py json
+  
+  protobuf:
+    build: tester/
+    command: python ./serialize.py protobuf
+  
+  yaml:
+    build: tester/
+    command: python ./serialize.py yaml
+  
+  msgpack:
+    build: tester/
+    command: python ./serialize.py msgpack
+  
+  avro:
+    build: tester/
+    command: python ./serialize.py avro
+
+
+
