@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message Dict {
+    int32 int = 1;
+    float float = 2;
+    string string = 3;
+
+    repeated int32 array_int = 4;
+    repeated float array_float = 5;
+    repeated string array_string = 6;
+
+    map<string, int32> dict_int = 7;
+    map<string, float> dict_float = 8;
+    map<string, string> dict_string = 9;
+}
