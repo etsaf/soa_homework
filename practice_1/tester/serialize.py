@@ -148,19 +148,22 @@ def get_size(message_dict, serialize):
     return sys.getsizeof(res)
 
 def get_time(message_dict, serialize, deserialize):
-    ser_time = timeit.timeit(lambda: serialize(message_dict), number=1000) / 1000
+    ser_time = timeit.timeit(lambda: serialize(message_dict), number=1000)
     message = serialize(message_dict)
-    deser_time = timeit.timeit(lambda: deserialize(message), number=1000) / 1000
-    return (round(ser_time * 1000000, 2), round(deser_time * 1000000, 2))
+    deser_time = timeit.timeit(lambda: deserialize(message), number=1000)
+    return (round(ser_time * 1000, 2), round(deser_time * 1000, 2))
 
-format = sys.argv[1]
-if format not in serializers:
-    print("No such format", format)
-    exit(1)
-serialize, deserialize = serializers[format]
-if not check_correctness(test_dict, serialize, deserialize):
-    print("Bug in format", format)
-    exit(1)
-size = get_size(test_dict, serialize)
-time = get_time(test_dict, serialize, deserialize)
-print(format + " - " + str(size) + " - " + str(time[0]) + "μs - " + str(time[1]) + "μs")
+def get_result(format):
+#format = sys.argv[1]
+    if format not in serializers:
+        result = "No such format " + format + '\n'
+        return result
+    serialize, deserialize = serializers[format]
+    if not check_correctness(test_dict, serialize, deserialize):
+        result = "Bug in format " + format + '\n'
+        return result
+    size = get_size(test_dict, serialize)
+    time = get_time(test_dict, serialize, deserialize)
+    #print(format + " - " + str(size) + " - " + str(time[0]) + "μs - " + str(time[1]) + "μs")
+    result = format + " - " + str(size) + " - " + str(time[0]) + "μs - " + str(time[1]) + "μs\n"
+    return result
