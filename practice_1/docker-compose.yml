@@ -4,31 +4,57 @@ services:
 
   native:
     build: tester/
-    command: python ./serialize.py native
+    command: python -u ./server.py native
+    expose:
+      - 2001/udp
   
   xml:
     build: tester/
-    command: python ./serialize.py xml
+    command: python -u ./server.py xml
+    expose:
+      - 2002/udp
   
   json:
     build: tester/
-    command: python ./serialize.py json
+    command: python -u ./server.py json
+    expose:
+      - 2003/udp
   
   protobuf:
     build: tester/
-    command: python ./serialize.py protobuf
+    command: python -u ./server.py protobuf
+    expose:
+      - 2004/udp
   
   yaml:
     build: tester/
-    command: python ./serialize.py yaml
+    command: python -u ./server.py yaml
+    expose:
+      - 2005/udp
   
   msgpack:
     build: tester/
-    command: python ./serialize.py msgpack
+    command: python -u ./server.py msgpack
+    expose:
+      - 2006/udp
   
   avro:
     build: tester/
-    command: python ./serialize.py avro
-
-
-
+    command: python -u ./server.py avro
+    expose:
+      - 2007/udp
+  
+  proxy:
+    build: proxy/
+    expose:
+      - 2000/udp
+    ports:
+      - 2000:2000/udp
+    depends_on:
+      - native
+      - xml
+      - json
+      - protobuf
+      - yaml
+      - msgpack
+      - avro
